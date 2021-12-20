@@ -1,7 +1,6 @@
 # PHP Pagination 
 
-Hierarchical is a simple php & mysql program to arrange users based on their rankings, it can also be used to represent data in a chain ranking.
-This libery will work very well with Google Organisation chart
+Pagination is a simple pagging in php
 
 
 ## Installation
@@ -15,28 +14,33 @@ composer require peterujah/pagination
 
 Hierarchical can be use as an array, html or google organizations chart
 
-  ```php 
-  use Peterujah\NanoBlock\Pagination;
-  $paging = new Pagination($rowCount, Pagination::LIST);
-  $paging = new Pagination($rowCount, Pagination::LINK);
-  ```
+```php 
+ use Peterujah\NanoBlock\Pagination;
+ $paging = new Pagination($rowCount, Pagination::LIST);
+ $paging = new Pagination($rowCount, Pagination::LINK);
+```
   
-  Dump array 
+Dump array 
   
-   ```php 
-   $paging = new Pagination(100, Pagination::LIST);
-   $paging->setLimit(20);
-   $paging->setCurrentPage($_GET["n"]??1)->show();
-   ```
+```php 
+ $paging = new Pagination(100, Pagination::LIST);
+ $paging->setLimit(20);
+ $paging->setCurrentPage($_GET["n"]??1)->show();
+ ```
    
-   ```php 
-   $paging = new Pagination(100, Pagination::LIST);
-   $paging->setLimit(20);
-   $html = $paging->setCurrentPage($_GET["n"]??1)->get();
-   ```
-   
+```php 
+ $paging = new Pagination(100, Pagination::LIST);
+ $paging->setLimit(20);
+ $html = $paging->setCurrentPage($_GET["n"]??1)->get();
+```
 
-Initalisation options `new NanoBlock($rowCount, NanoBlock::LINK)`
+Use built in css style, only work with `$paging->show()` method
+
+``` php 
+$paging->setAllowCss(true);
+```
+
+Initalisation options `new Pagination($rowCount, NanoBlock::LINK)`
 
 | Options         | Description                                                                         |
 |-----------------|-------------------------------------------------------------------------------------|
