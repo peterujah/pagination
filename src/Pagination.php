@@ -276,34 +276,34 @@ class Pagination {
 					}
 				}
 			if($this->currentPage != $this->totalPages){
-                $build .= $this->buttons("?n=" . ($this->currentPage + 1), "»");
-                $build .= $this->buttons("?n=" . $this->totalPages, "»»");
+                		$build .= $this->buttons("?n=" . ($this->currentPage + 1), "»");
+                		$build .= $this->buttons("?n=" . $this->totalPages, "»»");
 			}
 		}
-        return $build;
+        	return $build;
 	}
 
-    /**
-     * Return pagination menu links and buttons
-     * @return string|false return paging links if available else will return false
-     */
-    public function get(){
-        if(self::LIST == $this->buildType){
-            return '<ul class="pagination">' . $this->paging() . '</ul>';
-        }else if(self::LINK == $this->buildType){
-            return $this->paging();
-        }
-        return false;
+	/**
+	* Return pagination menu links and buttons
+	* @return string|false return paging links if available else will return false
+	*/
+	public function get(){
+		if(self::LIST == $this->buildType){
+			return '<ul class="pagination">' . $this->paging() . '</ul>';
+		}else if(self::LINK == $this->buildType){
+			return $this->paging();
+		}
+		return false;
 	}
 
-    /**
-     * Preview pagination menu links and buttons in page
-     * @display paging links and button in page as html or html string
-     */
-    public function show(){
-        if($this->allowCss){
-            echo $this->css;
-        }
-        echo $this->get();
+	/**
+	* Preview pagination menu links and buttons in page
+	* @display paging links and button in page as html or html string
+	*/
+   	 public function show(){
+		if($this->allowCss){
+		    echo $this->css;
+		}
+		echo $this->get();
 	}
 }
