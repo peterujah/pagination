@@ -25,13 +25,13 @@ Dump array
 ```php 
  $paging = new Pagination(100, Pagination::LIST);
  $paging->setLimit(20);
- $paging->setCurrentPage($_GET["n"]??1)->show();
+ $paging->setCurrentPage($_GET["page"]??1)->show();
  ```
    
 ```php 
  $paging = new Pagination(100, Pagination::LIST);
  $paging->setLimit(20);
- $html = $paging->setCurrentPage($_GET["n"]??1)->get();
+ $html = $paging->setCurrentPage($_GET["page"]??1)->get();
 ```
 
 Use built in css style, only work with `$paging->show()` method
