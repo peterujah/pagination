@@ -69,6 +69,12 @@ class Pagination {
    	 protected $urlQueries = array();
 
     /**
+     * Holds addition url query separator
+     * @var string
+     */
+     protected $and = "&amp;";
+
+    /**
      * Holds additional pagination button class name
      * @var string
      */
@@ -84,45 +90,15 @@ class Pagination {
      * Holds inline css style for buttons display
      * @var string
      */
-   	protected $css = "<style> ul.pagination {
-		display: -ms-flexbox;
-		display: flex;
-		padding-left: 0;
-		list-style: none;
-		border-radius: .25rem;
-		margin-top: 0;
-		margin-bottom: 1rem;
-	    }
-	    .page-link {
-		padding: .5rem .75rem;
-		margin-left: -1px;
-		line-height: 1.25;
-		color: #007bff;
-		background-color: #fff;
-		border: 1px solid #dee2e6;
-	    }
-	    .page-link:first-child  {
-		border-top-left-radius: .3rem;
-		border-bottom-left-radius: .3rem;
-	    }
-	    .page-link:last-child  {
-		border-top-right-radius: .3rem;
-		border-bottom-right-radius: .3rem;
-	    }
-	    li .page-link {
-		position: relative;
-		display: block;
-	    }
-	    a.page-link {
-		display: inline-block;
-	    }
-	    .page-link.active,
-	    .page-item.active .page-link {
-		z-index: 3;
-		color: #fff;
-		background-color: #007bff;
-		border-color: #007bff;
-	    } </style>";
+    protected $css = "<style>
+        ul.pagination{ display: -ms-flexbox; display: flex; padding-left: 0; list-style: none; border-radius: .25rem; margin-top: 0; margin-bottom: 1rem;} 
+        .page-link{ padding: .5rem .75rem; margin-left: -1px; line-height: 1.25; color: #007bff; background-color: #fff; border: 1px solid #dee2e6;} 
+        .page-link:first-child { border-top-left-radius: .3rem; border-bottom-left-radius: .3rem;} 
+        .page-link:last-child { border-top-right-radius: .3rem; border-bottom-right-radius: .3rem;} 
+        .page-link.active, .page-item.active .page-link{ z-index: 3; color: #fff; background-color: #007bff; border-color: #007bff;}
+        li .page-link{ position: relative; display: block;} 
+        a.page-link{ display: inline-block;} 
+    </style>";
 
 	/**
      * Constructor.
@@ -184,7 +160,7 @@ class Pagination {
      */
     protected function buildQuery($link){
         if(!empty($this->urlQueries) && $link != "#"){
-            return http_build_query(array_filter($this->urlQueries), '', '&amp;');
+            return $this->and . http_build_query(array_filter($this->urlQueries), '', $this->and);
         }
         return "";
     }
@@ -259,51 +235,61 @@ class Pagination {
         $build = "";
 		if($this->totalRecord > 0){
 			$this->totalPages = ceil($this->totalRecord / $this->pageLimit);
-				if($this->currentPage > 1){ 
-					$build .= $this->buttons("?n=1", "««");
-					$build .= $this->buttons("?n=".($this->currentPage - 1), "«");
-				}
-				if ($this->currentPage > $this->pageTruncate + 1){
-					$build .= $this->buttons("#", "...", "disabled");
-				}
-				for ($i = $this->currentPage - $this->pageTruncate; $i <= $this->currentPage + $this->pageTruncate; $i++){
-					if ($i >= 1 && $i <= $this->totalPages){
-						if($i == $this->currentPage){
-							$build .= $this->buttons("#", $i, "active");
-						}else{
-							$build .= $this->buttons("?n=" . $i, $i);
-						}
-					}
-				}
+            if($this->currentPage > 1){ 
+                $build .= $this->buttons("?n=1", "««");
+                $build .= $this->buttons("?n=".($this->currentPage - 1), "«");
+            }
+            
+            if ($this->currentPage > $this->pageTruncate + 1){
+                $build .= $this->buttons("#", "...", "disabled");
+            }
+            
+            $lines = 0;
+            for ($i = ($this->currentPage - $this->pageTruncate); $i <= ($this->currentPage + $this->pageTruncate); $i++){
+                if ($i >= 1 && $i <= $this->totalPages){
+                    if($i == $this->currentPage){
+                        $build .= $this->buttons("#", $i, "active");
+                    }else{
+                        if($lines <= $this->pageTruncate + 1){
+                            $build .= $this->buttons("?n=" . $i, $i);
+                            $lines++;
+                        }
+                    }
+                }
+            }
+
 			if($this->currentPage != $this->totalPages){
-                		$build .= $this->buttons("?n=" . ($this->currentPage + 1), "»");
-                		$build .= $this->buttons("?n=" . $this->totalPages, "»»");
+                if ($this->currentPage < ($this->totalPages - 3)){
+                    $build .= $this->buttons("#", "...", "disabled");
+                }
+                $build .= $this->buttons("?n=" . ($this->currentPage + 1), "»");
+                $build .= $this->buttons("?n=" . $this->totalPages, "»»");
 			}
 		}
-        	return $build;
+        return $build;
 	}
 
-	/**
-	* Return pagination menu links and buttons
-	* @return string|false return paging links if available else will return false
-	*/
-	public function get(){
-		if(self::LIST == $this->buildType){
-			return '<ul class="pagination">' . $this->paging() . '</ul>';
-		}else if(self::LINK == $this->buildType){
-			return $this->paging();
-		}
-		return false;
+    /**
+     * Return pagination menu links and buttons
+     * @return string|false return paging links if available else will return false
+     */
+    public function get(){
+        if(self::LIST == $this->buildType){
+            return '<ul class="pagination">' . $this->paging() . '</ul>';
+        }else if(self::LINK == $this->buildType){
+            return $this->paging();
+        }
+        return false;
 	}
 
-	/**
-	* Preview pagination menu links and buttons in page
-	* @display paging links and button in page as html or html string
-	*/
-   	 public function show(){
-		if($this->allowCss){
-		    echo $this->css;
-		}
-		echo $this->get();
+    /**
+     * Preview pagination menu links and buttons in page
+     * @display paging links and button in page as html or html string
+     */
+    public function show(){
+        if($this->allowCss){
+            echo $this->css;
+        }
+        echo $this->get();
 	}
 }
