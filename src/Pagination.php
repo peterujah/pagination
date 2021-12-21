@@ -84,7 +84,7 @@ class Pagination {
      * Holds boolean value to allow include of inline css style in page
      * @var bool
      */
-    	private $allowCss = true;
+    	private $allowCss = false;
 	
     /**
      * Holds inline css style for buttons display
@@ -170,7 +170,7 @@ class Pagination {
      * @param bool $allow boolean value to indicate if inline css will be created
      * @return $this
      */
-    public function setAllowCss($allow = true){
+    public function setAllowCss($allow = false){
         $this->allowCss = $allow;
         return $this;
     }
