@@ -84,8 +84,7 @@ class Pagination {
      * Holds inline css style for buttons display
      * @var string
      */
-   	 protected $css = "<style>
-	    ul.pagination {
+   	protected $css = "<style> ul.pagination {
 		display: -ms-flexbox;
 		display: flex;
 		padding-left: 0;
@@ -101,6 +100,12 @@ class Pagination {
 		color: #007bff;
 		background-color: #fff;
 		border: 1px solid #dee2e6;
+	    }
+	    .page-link:first-child  {
+		border-top-left-radius: .3rem;
+		border-bottom-left-radius: .3rem;
+	    }
+	    .page-link:last-child  {
 		border-top-right-radius: .3rem;
 		border-bottom-right-radius: .3rem;
 	    }
@@ -117,8 +122,7 @@ class Pagination {
 		color: #fff;
 		background-color: #007bff;
 		border-color: #007bff;
-	    }
-	</style>";
+	    } </style>";
 
 	/**
      * Constructor.
