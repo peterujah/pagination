@@ -1,5 +1,5 @@
 <?php
-namespace Pager\Tests;
+namespace Peterujah\NanoBlock\Tests;
 
 use Peterujah\NanoBlock;
 use PHPUnit\Framework\TestCase;
