@@ -17,7 +17,7 @@ class Pagination {
      *
      * @var int
      */
-    public const LIST = 1;
+    	public const LIST = 1;
 
     /**
      * Hold html links only pagination design
@@ -54,71 +54,71 @@ class Pagination {
      * Holds record row limit count per page
      * @var int
      */
-    private $pageLimit = 20;
+    	private $pageLimit = 20;
 
     /**
      * Holds pagination button to display type
      * @var int
      */
-    private $buildType;
+   	 private $buildType;
 
     /**
      * Holds addition url parameters
      * @var array
      */
-    protected $urlQueries = array();
+   	 protected $urlQueries = array();
 
     /**
      * Holds additional pagination button class name
      * @var string
      */
-    private $addClass = "";
+   	 private $addClass = "";
 
     /**
      * Holds boolean value to allow include of inline css style in page
      * @var bool
      */
-    private $allowCss = true;
-
+    	private $allowCss = true;
+	
     /**
      * Holds inline css style for buttons display
      * @var string
      */
-    protected $css = "<style>
-    ul.pagination {
-        display: -ms-flexbox;
-        display: flex;
-        padding-left: 0;
-        list-style: none;
-        border-radius: .25rem;
-        margin-top: 0;
-        margin-bottom: 1rem;
-    }
-    .page-link {
-        padding: .5rem .75rem;
-        margin-left: -1px;
-        line-height: 1.25;
-        color: #007bff;
-        background-color: #fff;
-        border: 1px solid #dee2e6;
-        border-top-right-radius: .3rem;
-        border-bottom-right-radius: .3rem;
-    }
-    li .page-link {
-        position: relative;
-        display: block;
-    }
-    a.page-link {
-        display: inline-block;
-    }
-    .page-link.active,
-    .page-item.active .page-link {
-        z-index: 3;
-        color: #fff;
-        background-color: #007bff;
-        border-color: #007bff;
-    }
-    </style>";
+   	 protected $css = "<style>
+	    ul.pagination {
+		display: -ms-flexbox;
+		display: flex;
+		padding-left: 0;
+		list-style: none;
+		border-radius: .25rem;
+		margin-top: 0;
+		margin-bottom: 1rem;
+	    }
+	    .page-link {
+		padding: .5rem .75rem;
+		margin-left: -1px;
+		line-height: 1.25;
+		color: #007bff;
+		background-color: #fff;
+		border: 1px solid #dee2e6;
+		border-top-right-radius: .3rem;
+		border-bottom-right-radius: .3rem;
+	    }
+	    li .page-link {
+		position: relative;
+		display: block;
+	    }
+	    a.page-link {
+		display: inline-block;
+	    }
+	    .page-link.active,
+	    .page-item.active .page-link {
+		z-index: 3;
+		color: #fff;
+		background-color: #007bff;
+		border-color: #007bff;
+	    }
+	</style>";
 
 	/**
      * Constructor.
