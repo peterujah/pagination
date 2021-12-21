@@ -40,7 +40,7 @@ Use built in css style, only work with `$paging->show()` method
 $paging->setAllowCss(true);
 ```
 
-Initalisation options `new Pagination($rowCount, NanoBlock::LINK)`
+Initalisation options `new Pagination($rowCount, Pagination::LINK)`
 
 | Options         | Description                                                                         |
 |-----------------|-------------------------------------------------------------------------------------|
