@@ -15,14 +15,6 @@
     "require-dev": {
         "peterujah/pagination": "^0.1"
     },
-    "scripts": {
-        "post-install-cmd": [
-            "PeterUjah\\CopyFile\\ScriptHandler::copy"
-        ],
-        "post-update-cmd": [
-            "PeterUjah\\CopyFile\\ScriptHandler::copy"
-        ]
-    },
      "extra": {
         "branch-alias": {
             "dev-master": "0.1-dev"
@@ -32,8 +24,5 @@
         "psr-4": { 
             "Peterujah\\NanoBlock\\": "src/" 
         }
-    },
-    
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    }
 }
