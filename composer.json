@@ -2,6 +2,13 @@
     "name": "peterujah/pagination",
     "type": "library",
     "description": "Pagination - a simple php pagination.",
+     "keywords": [
+        "library",
+        "pagination",
+        "paging class",
+        "php pagination",
+        "bootstrap paging"
+    ],
     "license": "MIT",
     "authors": [
         {
