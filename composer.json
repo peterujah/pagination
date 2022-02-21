@@ -20,11 +20,11 @@
         "php": "^7.0 || ^8.0"
     },
     "require-dev": {
-        "peterujah/pagination": "^0.1"
+        "peterujah/pagination": "^1.2"
     },
      "extra": {
         "branch-alias": {
-            "dev-master": "0.1-dev"
+            "dev-master": "1.2-dev"
         }
     },
     "autoload": {
