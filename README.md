@@ -1,6 +1,14 @@
 # PHP Pagination 
 
-Pagination is a simple pagging in php
+Pagination is a simple package that can generate HTML to navigate between listing pages.
+
+It takes as parameter values the type of navigation to generate and the total number of entries in the listing.
+
+The class generates HTML with links to allow the user to click and go to the other listing pages considering the current listing page number.
+
+The class's navigation can be either a list of links or just a group of links pointing to each listing page.
+
+Developers can configure the presentation of the navigation using CSS styles.
 
 
 ## Installation
