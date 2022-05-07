@@ -4,10 +4,12 @@
     "description": "Pagination - a simple php pagination.",
      "keywords": [
         "library",
+        "php class",
         "pagination",
         "paging class",
         "php pagination",
-        "bootstrap paging"
+        "bootstrap paging",
+        "paging"
     ],
     "license": "MIT",
     "authors": [
@@ -28,5 +30,6 @@
         "psr-4": { 
             "Peterujah\\NanoBlock\\": "src/" 
         }
-    }
+    },
+    "prefer-stable": true
 }
