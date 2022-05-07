@@ -90,41 +90,7 @@ class Pagination {
      * Holds inline css style for buttons display
      * @var string
      */
-   	 protected $css = "<style>
-	    ul.pagination {
-		display: -ms-flexbox;
-		display: flex;
-		padding-left: 0;
-		list-style: none;
-		border-radius: .25rem;
-		margin-top: 0;
-		margin-bottom: 1rem;
-	    }
-	    .page-link {
-		padding: .5rem .75rem;
-		margin-left: -1px;
-		line-height: 1.25;
-		color: #007bff;
-		background-color: #fff;
-		border: 1px solid #dee2e6;
-		border-top-right-radius: .3rem;
-		border-bottom-right-radius: .3rem;
-	    }
-	    li .page-link {
-		position: relative;
-		display: block;
-	    }
-	    a.page-link {
-		display: inline-block;
-	    }
-	    .page-link.active,
-	    .page-item.active .page-link {
-		z-index: 3;
-		color: #fff;
-		background-color: #007bff;
-		border-color: #007bff;
-	    }
-	</style>";
+   	 protected $css = "<style>ul.pagination{display:-ms-flexbox;display:flex;padding-left:0;list-style:none;border-radius:.25rem;margin-top:0;margin-bottom:1rem}.page-link{padding:.5rem .75rem;margin-left:-1px;line-height:1.25;color:#007bff;background-color:#fff;border:1px solid #dee2e6;border-top-right-radius:.3rem;border-bottom-right-radius:.3rem}li .page-link{position:relative;display:block}a.page-link{display:inline-block}.page-link.active,.page-item.active .page-link{z-index:3;color:#fff;background-color:#007bff;border-color:#007bff}</style>";
 
 	/**
      * Constructor.
@@ -271,22 +237,22 @@ class Pagination {
         $build = "";
 	if($this->totalRecord > 0){
 		$this->totalPages = ceil($this->totalRecord / $this->pageLimit);
-			if($this->currentPage > 1){ 
-				$build .= $this->buttons("?n=1", "««");
-				$build .= $this->buttons("?n=".($this->currentPage - 1), "«");
-			}
-			if ($this->currentPage > $this->pageTruncate + 1){
-				$build .= $this->buttons("#", "...", "disabled");
-			}
-			for ($i = $this->currentPage - $this->pageTruncate; $i <= $this->currentPage + $this->pageTruncate; $i++){
-				if ($i >= 1 && $i <= $this->totalPages){
-					if($i == $this->currentPage){
-						$build .= $this->buttons("#", $i, "active");
-					}else{
-						$build .= $this->buttons("?n=" . $i, $i);
-					}
+		if($this->currentPage > 1){ 
+			$build .= $this->buttons("?n=1", "««");
+			$build .= $this->buttons("?n=".($this->currentPage - 1), "«");
+		}
+		if ($this->currentPage > $this->pageTruncate + 1){
+			$build .= $this->buttons("#", "...", "disabled");
+		}
+		for ($i = $this->currentPage - $this->pageTruncate; $i <= $this->currentPage + $this->pageTruncate; $i++){
+			if ($i >= 1 && $i <= $this->totalPages){
+				if($i == $this->currentPage){
+					$build .= $this->buttons("#", $i, "active");
+				}else{
+					$build .= $this->buttons("?n=" . $i, $i);
 				}
 			}
+		}
 		if($this->currentPage != $this->totalPages){
 			$build .= $this->buttons("?n=" . ($this->currentPage + 1), "»");
 			$build .= $this->buttons("?n=" . $this->totalPages, "»»");
