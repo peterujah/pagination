@@ -99,7 +99,7 @@ class Pagination {
      */
 	public function __construct($total = 0, $type = self::LIST){
 		$this->totalRecord = $total;
-        $this->buildType = $type;
+        	$this->buildType = $type;
 	}
 
     /**
