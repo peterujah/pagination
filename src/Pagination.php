@@ -118,7 +118,7 @@ class Pagination {
      * @return $this
      */
     public function setCurrentPage($page = 1){
-        $this->currentPage = (int) $page;
+        $this->currentPage = $page;
         return $this;
     }
 
@@ -151,23 +151,10 @@ class Pagination {
      * @return string will return additional url query string
      */
     protected function buildQuery($link){
-        if($this->hasParam() && $link != "#"){
-            return "&" . http_build_query(array_filter($this->urlQueries), '', '&amp;');
+        if(!empty($this->urlQueries) && $link != "#"){
+            return http_build_query(array_filter($this->urlQueries), '', '&amp;');
         }
         return "";
-    }
-
-    /**
-     * checks if url has query param
-     * @return bool if has query param
-     */
-    private function hasParam(){
-        if(!empty($this->urlQueries)){
-            foreach($this->urlQueries as $value){
-                return !empty($value);
-            }
-        }
-        return false;
     }
 
     /**
@@ -248,29 +235,29 @@ class Pagination {
      */
     protected function paging(){
         $build = "";
-        if($this->totalRecord > 0){
-            $this->totalPages = ceil($this->totalRecord / $this->pageLimit);
-            if($this->currentPage > 1){ 
-                $build .= $this->buttons("?n=1", "««");
-                $build .= $this->buttons("?n=".($this->currentPage - 1), "«");
-            }
-            if ($this->currentPage > $this->pageTruncate + 1){
-                $build .= $this->buttons("#", "...", "disabled");
-            }
-            for ($i = $this->currentPage - $this->pageTruncate; $i <= $this->currentPage + $this->pageTruncate; $i++){
-                if ($i >= 1 && $i <= $this->totalPages){
-                    if($i == $this->currentPage){
-                        $build .= $this->buttons("#", $i, "active");
-                    }else{
-                        $build .= $this->buttons("?n=" . $i, $i);
-                    }
-                }
-            }
-            if($this->currentPage != $this->totalPages){
-                $build .= $this->buttons("?n=" . ($this->currentPage + 1), "»");
-                $build .= $this->buttons("?n=" . $this->totalPages, "»»");
-            }
-        }
+	if($this->totalRecord > 0){
+		$this->totalPages = ceil($this->totalRecord / $this->pageLimit);
+		if($this->currentPage > 1){ 
+			$build .= $this->buttons("?n=1", "««");
+			$build .= $this->buttons("?n=".($this->currentPage - 1), "«");
+		}
+		if ($this->currentPage > $this->pageTruncate + 1){
+			$build .= $this->buttons("#", "...", "disabled");
+		}
+		for ($i = $this->currentPage - $this->pageTruncate; $i <= $this->currentPage + $this->pageTruncate; $i++){
+			if ($i >= 1 && $i <= $this->totalPages){
+				if($i == $this->currentPage){
+					$build .= $this->buttons("#", $i, "active");
+				}else{
+					$build .= $this->buttons("?n=" . $i, $i);
+				}
+			}
+		}
+		if($this->currentPage != $this->totalPages){
+			$build .= $this->buttons("?n=" . ($this->currentPage + 1), "»");
+			$build .= $this->buttons("?n=" . $this->totalPages, "»»");
+		}
+	}
 	return $build;
      }
 
