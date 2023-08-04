@@ -42,12 +42,13 @@ Dump array
  $html = $paging->setCurrentPage($_GET["page"]??1)->get();
 ```
 
-Use built in css style, only work with `$paging->show()` method
+Use built-in css style, only work with `$paging->show()` method
 
 ``` php 
 $paging->setAllowCss(true);
 ```
 
+## Constants
 Initalisation options `new Pagination($rowCount, Pagination::LINK)`
 
 | Options         | Description                                                                         |
@@ -55,3 +56,47 @@ Initalisation options `new Pagination($rowCount, Pagination::LINK)`
 | LIST            | Retrieve result as an html list                                                     |
 | LINK            | Retrieve result in HTML link                                                        |
 
+## Methods
+
+| Method                    | Description                                                                         |
+|---------------------------|-------------------------------------------------------------------------------------|
+| setLimit(int)             | Set query row display limit per page                                                |
+| setCurrentPage(int)       | Set current paging number                                                           |
+| addQuery(string, string)  | Add query parameter (key, value)                                                    |
+| setQueries(array)         | Set query parameters array(key => value)                                            |
+| setAllowCss(bool)         | Enable default paging buttons styling                                               |
+| setClass(string)          | Set a custom class name for paging list items `li`                                  |
+| setParentClass(string)    | Set a custom class name for pagination unordered list `ul`                          |
+| setTruncate(int)          | Set pagination truncate offset                                                      |
+| getSize() :int            | Get total pagination calculated cell pages                                          |
+| getOffset() :int          | Get pagination next page start offset                                               |
+| get() :html|false         | Returns pagination generated html                                                   |
+| show() :void              | Display pagination buttons                                                          |
+
+
+
+## Full usage example
+
+```php
+<?php
+use Peterujah\NanoBlock\Pagination;
+$queryLimit = 26;
+$searchQuery = htmlentities($_GET["search"]??"");
+$queryPage = Func::XSS(($_GET["n"] ?? 1), "int");
+$queryStart = ($queryPage - 1) * $queryLimit;
+
+$users = (object) array(
+  "users" => $query->findUsers($queryStart, $queryLimit),
+  "rowCount" => $query->findTotalUsers()
+);
+
+$paging = new Pagination($users->rowCount, Pagination::LIST);
+$paging->setLimit($queryLimit);
+?>
+<?php foreach($users->users as $row){ ?>
+<div><?php echo $row->userFullname;?></div>
+<?php } ?>
+<nav aria-label="Page navigation">
+  <?php echo $paging->setCurrentPage($queryPage)->get();?>
+</nav>
+```
