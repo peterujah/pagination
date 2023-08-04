@@ -20,7 +20,7 @@ composer require peterujah/pagination
 
 # USAGES
 
-Hierarchical can be use as an array, html or google organizations chart
+Pagination can be used as an HTML hyperlink or HTML unordered list
 
 ```php 
  use Peterujah\NanoBlock\Pagination;
