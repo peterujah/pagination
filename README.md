@@ -80,9 +80,9 @@ Initalisation options `new Pagination($rowCount, Pagination::LINK)`
 ```php
 <?php
 use Peterujah\NanoBlock\Pagination;
-$queryLimit = 26;
-$searchQuery = htmlentities($_GET["search"]??"");
-$queryPage = Func::XSS(($_GET["n"] ?? 1), "int");
+use Peterujah\NanoBlock\Functions;
+$queryLimit = 30;
+$queryPage = Functions::XSS(($_GET["n"] ?? 1), "int");
 $queryStart = ($queryPage - 1) * $queryLimit;
 
 $users = (object) array(
