@@ -233,33 +233,38 @@ class Pagination {
      * Create paging links and buttons for the number of records
      * @return string Returns the pagination buttons if available else will return empty
      */
-    protected function paging(){
+    protected function paging() {
         $build = "";
-	if($this->totalRecord > 0){
-		$this->totalPages = ceil($this->totalRecord / $this->pageLimit);
-		if($this->currentPage > 1){ 
-			$build .= $this->buttons("?n=1", "««");
-			$build .= $this->buttons("?n=".($this->currentPage - 1), "«");
-		}
-		if ($this->currentPage > $this->pageTruncate + 1){
-			$build .= $this->buttons("#", "...", "disabled");
-		}
-		for ($i = $this->currentPage - $this->pageTruncate; $i <= $this->currentPage + $this->pageTruncate; $i++){
-			if ($i >= 1 && $i <= $this->totalPages){
-				if($i == $this->currentPage){
-					$build .= $this->buttons("#", $i, "active");
-				}else{
-					$build .= $this->buttons("?n=" . $i, $i);
-				}
-			}
-		}
-		if($this->currentPage != $this->totalPages){
-			$build .= $this->buttons("?n=" . ($this->currentPage + 1), "»");
-			$build .= $this->buttons("?n=" . $this->totalPages, "»»");
-		}
-	}
-	return $build;
-     }
+
+        if ($this->totalRecord > 0) {
+            $this->totalPages = ceil($this->totalRecord / $this->pageLimit);
+
+            if ($this->currentPage > 1) {
+                $build .= $this->buttons("?n=1", "««");
+                $build .= $this->buttons("?n=" . ($this->currentPage - 1), "«");
+            }
+
+            if ($this->currentPage > $this->pageTruncate + 1) {
+                $build .= $this->buttons("#", "...", "disabled");
+            }
+
+            //  for ($i = $this->currentPage - $this->pageTruncate; $i <= $this->currentPage + $this->pageTruncate; $i++){
+            for ($i = max(1, $this->currentPage - $this->pageTruncate); $i <= min($this->totalPages, $this->currentPage + $this->pageTruncate); $i++) {
+                if ($i == $this->currentPage) {
+                    $build .= $this->buttons("#", $i, "active");
+                } else {
+                    $build .= $this->buttons("?n=" . $i, $i);
+                }
+            }
+
+            if ($this->currentPage != $this->totalPages) {
+                $build .= $this->buttons("?n=" . ($this->currentPage + 1), "»");
+                $build .= $this->buttons("?n=" . $this->totalPages, "»»");
+            }
+        }
+
+        return $build;
+    }
 
     /**
      * Return pagination menu links and buttons
