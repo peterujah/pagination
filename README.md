@@ -8,7 +8,7 @@ The class generates HTML with links to allow the user to click and go to the oth
 
 The class's navigation can be either a list of links or just a group of links pointing to each listing page.
 
-Developers can configure the presentation of the navigation using CSS styles.
+Developers can configure the presentation of the navigation using custom CSS styles or bootstrap pagination.
 
 
 ## Installation
@@ -53,8 +53,8 @@ Initalisation options `new Pagination($rowCount, Pagination::LINK)`
 
 | Options         | Description                                                                         |
 |-----------------|-------------------------------------------------------------------------------------|
-| LIST            | Retrieve result as an html list                                                     |
-| LINK            | Retrieve result in HTML link                                                        |
+| LIST            | Retrieve result as an html unordered list                                           |
+| LINK            | Retrieve result in HTML hyperlink                                                   |
 
 ## Methods
 
@@ -77,6 +77,7 @@ Initalisation options `new Pagination($rowCount, Pagination::LINK)`
 
 ## Full usage example
 
+Example: Specify the total number of rows in your table `findTotalUsers :(int)`, then select only the number of items to show per page `findUsers(startOffset, limitPerPage)`
 ```php
 <?php
 use Peterujah\NanoBlock\Pagination;
