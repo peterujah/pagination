@@ -78,26 +78,32 @@ Initalisation options `new Pagination($rowCount, Pagination::LINK)`
 ## Full usage example
 
 Example: Specify the total number of rows in your table `findTotalUsers :(int)`, then select only the number of items to show per page `findUsers(startOffset, limitPerPage)`
+
 ```php
-<?php
 use Peterujah\NanoBlock\Pagination;
 use Peterujah\NanoBlock\Functions;
+// Configure page limit
 $queryLimit = 30;
 $queryPage = Functions::XSS(($_GET["n"] ?? 1), "int");
 $queryStart = ($queryPage - 1) * $queryLimit;
 
+// Query your database table
 $users = (object) array(
-  "users" => $query->findUsers($queryStart, $queryLimit),
-  "rowCount" => $query->findTotalUsers()
+    "users" => $conn->findUsers($queryStart, $queryLimit),
+    "rowCount" => $conn->findTotalUsers()
 );
 
+// Initialize Pagination
 $paging = new Pagination($users->rowCount, Pagination::LIST);
 $paging->setLimit($queryLimit);
-?>
-<?php foreach($users->users as $row){ ?>
-<div><?php echo $row->userFullname;?></div>
-<?php } ?>
-<nav aria-label="Page navigation">
-  <?php echo $paging->setCurrentPage($queryPage)->get();?>
-</nav>
+$paging->setCurrentPage($queryPage);
+
+// Display your contents
+foreach($users->users as $row){
+    echo "<div>{$row->userFullname}</div>";
+}
+// Add pagination buttons
+echo "<nav aria-label='Page navigation'>";
+echo $paging->get();
+echo "</nav>";
 ```
