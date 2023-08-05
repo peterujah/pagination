@@ -70,7 +70,7 @@ Initalisation options `new Pagination($rowCount, Pagination::LINK)`
 | setTruncate(int)          | Set pagination truncate offset                                                      |
 | getSize() :int            | Get total pagination calculated cell pages                                          |
 | getOffset() :int          | Get pagination next page start offset                                               |
-| get() :html|false         | Returns pagination generated html                                                   |
+| get() :HTML:false         | Returns pagination generated html                                                   |
 | show() :void              | Display pagination buttons                                                          |
 
 
