@@ -1,7 +1,7 @@
 {
     "name": "peterujah/pagination",
     "type": "library",
-    "description": "Pagination - a simple php pagination.",
+    "description": "Pagination - Simple PHP library to generate website pagination",
      "keywords": [
         "library",
         "php class",
