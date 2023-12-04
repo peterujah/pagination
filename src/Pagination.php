@@ -16,20 +16,20 @@ class Pagination {
      * Hold html under list pagination design
      *
      * @var int
-     */
-    	public const LIST = 1;
+    */
+    public const LIST = 1;
 
     /**
      * Hold html links only pagination design
      *
      * @var int
-     */
+    */
 	public const LINK = 3;
 
     /**
      * Hold pagination current page number
      * @var int
-     */
+    */
 	private int $currentPage = 1;
 
     /**
@@ -41,62 +41,62 @@ class Pagination {
     /**
      * Holds truncate index position
      * @var int
-     */
+    */
 	private int $pageTruncate = 4;
 	
 	/**
      * Holds total record row count
      * @var int
-     */
+    */
 	private int $totalRecord = 0;
 
     /**
      * Holds record row limit count per page
      * @var int
-     */
-    	private int $pageLimit = 20;
+    */
+    private int $pageLimit = 20;
 
     /**
      * Holds pagination button to display type
      * @var int
-     */
-   	 private int $buildType;
+    */
+   	private int $buildType = 1;
 
     /**
      * Holds addition url parameters
      * @var array
-     */
-   	 protected array $urlQueries = [];
+    */
+    private $urlQueries = [];
 
     /**
      * Holds additional pagination button class name
      * @var string
-     */
-   	 private string $addClass = "";
+    */
+   	private $addClass = '';
 
     /**
      * Holds additional pagination ul parent class name
      * @var string
      */
-   	 private string $parentClass = "";
+   	 private $parentClass = '';
 
     /**
      * Holds boolean value to allow include of inline css style in page
      * @var bool
-     */
-    private bool $allowCss = true;
+    */
+    private $allowCss = true;
 	
     /**
      * Holds inline css style for buttons display
      * @var string
-     */
-   	 protected string $css = "<style>ul.pagination{display:-ms-flexbox;display:flex;padding-left:0;list-style:none;border-radius:.25rem;margin-top:0;margin-bottom:1rem}.page-link{padding:.5rem .75rem;margin-left:-1px;line-height:1.25;color:#007bff;background-color:#fff;border:1px solid #dee2e6;border-top-right-radius:.3rem;border-bottom-right-radius:.3rem}li .page-link{position:relative;display:block}a.page-link{display:inline-block}.page-link.active,.page-item.active .page-link{z-index:3;color:#fff;background-color:#007bff;border-color:#007bff}</style>";
+    */
+   	private $css = "<style>ul.pagination{display:-ms-flexbox;display:flex;padding-left:0;list-style:none;border-radius:.25rem;margin-top:0;margin-bottom:1rem}.page-link{padding:.5rem .75rem;margin-left:-1px;line-height:1.25;color:#007bff;background-color:#fff;border:1px solid #dee2e6;border-top-right-radius:.3rem;border-bottom-right-radius:.3rem}li .page-link{position:relative;display:block}a.page-link{display:inline-block}.page-link.active,.page-item.active .page-link{z-index:3;color:#fff;background-color:#007bff;border-color:#007bff}</style>";
 
 	/**
      * Constructor.
      * @param int  $total total number of records
      * @param int $type type of pagination button to display
-     */
+    */
 	public function __construct(int $total = 0, int $type = self::LIST){
 		$this->totalRecord = $total;
         $this->buildType = $type;
@@ -104,135 +104,173 @@ class Pagination {
 
     /**
      * Sets maximum record limit per page
+     * 
      * @param int $limit row per page
+     * 
      * @return $this
      */
-    public function setLimit(int $limit): self{
+    public function setLimit(int $limit): self 
+    {
         $this->pageLimit = $limit;
         return $this;
     }
 
     /**
      * Sets the current pagination page number
+     * 
      * @param int $page page number
+     * 
      * @return $this
      */
-    public function setCurrentPage(int $page = 1): self{
+    public function setCurrentPage(int $page): self 
+    {
         $this->currentPage = $page;
         return $this;
     }
 
     /**
      * Add additional url query parameter
+     * 
      * @param string $key query name
      * @param mixed $value query value
+     * 
      * @return $this
      */
-    public function addQuery(string $key, mixed $value): self{
+    public function addQuery(string $key, mixed $value): self 
+    {
         $this->urlQueries[$key] = $value;
         return $this;
     }
 
     /**
      * Sets additional url query parameter
-     * @param string $array query name and value in arrays array(name => value, name => value 2)
+     * 
+     * @param string $queries query name and value in arrays array(name => value, name => value 2)
+     * 
      * @return $this
      */
-    public function setQueries(array $array): self{
-        $this->urlQueries = $array;
+    public function setQueries(array $queries): self 
+    {
+        $this->urlQueries = $queries;
         return $this;
     }
 
+
    /**
      * Builds additional query string to add to the URL
-     * @param string $link If the initial link value is no # add any additional items
+     * 
+     * @param mixed $link If the initial link value is not # add any additional items
+     * 
      * @return string will return additional url query string
      */
-    protected function buildQuery(string $link): string{
-        if(!empty($this->urlQueries) && $link != "#"){
+    protected function buildQuery(string $link): string 
+    {
+        if($this->urlQueries !== [] && $link !== '#'){
             return http_build_query(array_filter($this->urlQueries), '', '&amp;');
         }
-        return "";
+        return '';
     }
 
     /**
      * Sets allow inline css style
+     * 
      * @param bool $allow boolean value to indicate if inline css will be created
+     * 
      * @return $this
      */
-    public function setAllowCss(bool $allow): self{
+    public function setAllowCss(bool $allow): self 
+    {
         $this->allowCss = $allow;
         return $this;
     }
 
     /**
      * Sets additional links button class name
+     * 
      * @param string $class class name separate with space for multiple class names
+     * 
      * @return $this
      */
-    public function setClass(string $class): self{
+    public function setClass(string $class): self
+    {
         $this->addClass = $class;
         return $this;
     }
 
     /**
      * Sets additional links button class name
+     * 
      * @param string $class class name separate with space for multiple class names
+     * 
      * @return $this
      */
-    public function setParentClass(string $class): self{
+    public function setParentClass(string $class): self 
+    {
         $this->parentClass = $class;
         return $this;
     }
 
     /**
      * Sets pagination links truncate position
-     * @param int $at truncate index position
+     * 
+     * @param int $truncate truncate index position
+     * 
      * @return $this
      */
-    public function setTruncate(int $at): self{
-        $this->pageTruncate = $at;
+    public function setTruncate(int $truncate): self 
+    {
+        $this->pageTruncate = $truncate;
         return $this;
     }
 
     /**
      * Get total pagination links
+     * 
      * @return int
      */
-    public function getSize(): int{
-        return (int) $this->totalPages;
+    public function getSize(): int 
+    {
+        return $this->totalPages;
     }
 
     /**
      * Get pagination next page start offset
      * @return int
      */
-    public function getOffset():int{
-        return ((int) $this->currentPage - 1) * $this->pageLimit;
+    public function getOffset(): int 
+    {
+        return ($this->currentPage - 1) * $this->pageLimit;
     }
 
      /**
      * Build pagination links with the initial line, value and status
+     * 
      * @param string $link Initial link url parameter
      * @param mixed $value This is the paging button text, it can set as numbers, arrows or dots etc
      * @param string $active If this is the active or disabled paging link
+     * 
      * @return string This will return the paging html link as a string
      */
-    protected function buttons(string $link, mixed $value, ?string $active = null){
+    private function buttons(string $link, mixed $value, ?string $active = null): string 
+    {
         if(self::LIST == $this->buildType){
             return '<li class="page-item '. $active .' ' . $this->addClass . '"><a class="page-link" href="' . $link . $this->buildQuery($link) . '" title="Page ' . $value . '">'.$value.'</a></li>';
-        }else if(self::LINK == $this->buildType){
+        } 
+        
+        if(self::LINK == $this->buildType){
             return '<a class="page-link '. $active .' ' . $this->addClass . '" href="' . $link . $this->buildQuery($link) . '" title="Page ' . $value . '">'.$value.'</a>';
         }
-        return "";
+        return '';
     }
 
      /**
      * Create paging links and buttons for the number of records
+     * 
      * @return string Returns the pagination buttons if available else will return empty
      */
-    protected function paging(): string{
-        $build = "";
+    private function createPaging(): string 
+    {
+        $build = '';
         if($this->totalRecord > 0){
             $this->totalPages = ceil($this->totalRecord / $this->pageLimit);
             if($this->currentPage > 1){ 
@@ -257,29 +295,55 @@ class Pagination {
             }
         }
         return $build;
-     }
+    }
 
     /**
      * Return pagination menu links and buttons
+     * 
      * @return string|false return paging links if available else will return false
      */
-    public function get(): mixed{
+    public function get(): mixed 
+    {
         if(self::LIST == $this->buildType){
-            return '<ul class="pagination ' . $this->parentClass . '">' . $this->paging() . '</ul>';
-        }else if(self::LINK == $this->buildType){
-            return $this->paging();
+            return '<ul class="pagination ' . $this->parentClass . '">' . $this->createPaging() . '</ul>';
         }
+
+        if(self::LINK == $this->buildType){
+            return $this->createPaging();
+        }
+
         return false;
     }
 
     /**
      * Preview pagination menu links and buttons in page
-     * @display paging links and button in page as html or html string
-     */
-    public function show(): void{
+     * echo paging links and button in page as html or html string
+     * 
+     * @return void 
+    */
+    public function show(): void 
+    {
         if($this->allowCss){
             echo $this->css;
         }
         echo $this->get();
+    }
+
+    /**
+     * Check if url queries has a valid key
+     * 
+     * @param array $queries
+     * 
+     * @return bool 
+    */
+    private function queryHasKey(array $queries): bool 
+    {
+        foreach ($queries as $key => $value) {
+            if (is_string($key)) {
+                return true; 
+            }
+        }
+    
+        return false; 
     }
 }
