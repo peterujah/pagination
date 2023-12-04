@@ -81,10 +81,9 @@ Example: Specify the total number of rows in your table `findTotalUsers :(int)`,
 
 ```php
 use Peterujah\NanoBlock\Pagination;
-use Peterujah\NanoBlock\Functions;
 // Configure page limit
 $queryLimit = 30;
-$queryPage = Functions::XSS(($_GET["n"] ?? 1), "int");
+$queryPage = $_GET["n"]??1;
 $queryStart = ($queryPage - 1) * $queryLimit;
 
 // Query your database table
