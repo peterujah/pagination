@@ -15,89 +15,96 @@ class Pagination {
     /**
      * Hold html under list pagination design
      *
-     * @var int
+     * @var int LIST
     */
     public const LIST = 1;
 
     /**
      * Hold html links only pagination design
      *
-     * @var int
+     * @var int LINK
     */
 	public const LINK = 3;
 
     /**
      * Hold pagination current page number
-     * @var int
+     * @var int $currentPage
     */
 	private int $currentPage = 1;
 
     /**
      * Holds total calculated cell pages
-     * @var int
+     * @var int $totalPages
      */
 	private int $totalPages = 0;
 
     /**
      * Holds truncate index position
-     * @var int
+     * @var int $pageTruncate
     */
 	private int $pageTruncate = 4;
 	
 	/**
      * Holds total record row count
-     * @var int
+     * @var int $totalRecord
     */
 	private int $totalRecord = 0;
 
     /**
      * Holds record row limit count per page
-     * @var int
+     * @var int $pageLimit
     */
     private int $pageLimit = 20;
 
     /**
      * Holds pagination button to display type
-     * @var int
+     * @var int $buildType
     */
    	private int $buildType = 1;
 
     /**
      * Holds addition url parameters
-     * @var array
+     * @var array $urlQueries
     */
-    private $urlQueries = [];
+    private array $urlQueries = [];
 
     /**
      * Holds additional pagination button class name
-     * @var string
+     * @var string $addClass
     */
-   	private $addClass = '';
+   	private string $addClass = '';
 
     /**
      * Holds additional pagination ul parent class name
-     * @var string
+     * @var string $parentClass
      */
-   	 private $parentClass = '';
+   	 private string $parentClass = '';
 
     /**
      * Holds boolean value to allow include of inline css style in page
-     * @var bool
+     * @var bool $allowCss
     */
-    private $allowCss = true;
+    private bool $allowCss = true;
 	
+     /**
+     * Holds boolean value to allow default item class
+     * @var bool $itemClass
+    */
+    private bool $itemClass = true;
+
     /**
      * Holds inline css style for buttons display
-     * @var string
+     * @var string $css
     */
-   	private $css = "<style>ul.pagination{display:-ms-flexbox;display:flex;padding-left:0;list-style:none;border-radius:.25rem;margin-top:0;margin-bottom:1rem}.page-link{padding:.5rem .75rem;margin-left:-1px;line-height:1.25;color:#007bff;background-color:#fff;border:1px solid #dee2e6;border-top-right-radius:.3rem;border-bottom-right-radius:.3rem}li .page-link{position:relative;display:block}a.page-link{display:inline-block}.page-link.active,.page-item.active .page-link{z-index:3;color:#fff;background-color:#007bff;border-color:#007bff}</style>";
+   	private string $css = "<style>ul.pagination{display:-ms-flexbox;display:flex;padding-left:0;list-style:none;border-radius:.25rem;margin-top:0;margin-bottom:1rem}.page-link{padding:.5rem .75rem;margin-left:-1px;line-height:1.25;color:#007bff;background-color:#fff;border:1px solid #dee2e6;border-top-right-radius:.3rem;border-bottom-right-radius:.3rem}li .page-link{position:relative;display:block}a.page-link{display:inline-block}.page-link.active,.page-item.active .page-link{z-index:3;color:#fff;background-color:#007bff;border-color:#007bff}</style>";
 
 	/**
      * Constructor.
      * @param int  $total total number of records
      * @param int $type type of pagination button to display
     */
-	public function __construct(int $total = 0, int $type = self::LIST){
+	public function __construct(int $total = 0, int $type = self::LIST)
+    {
 		$this->totalRecord = $total;
         $this->buildType = $type;
 	}
@@ -112,6 +119,7 @@ class Pagination {
     public function setLimit(int $limit): self 
     {
         $this->pageLimit = $limit;
+        
         return $this;
     }
 
@@ -125,6 +133,7 @@ class Pagination {
     public function setCurrentPage(int $page): self 
     {
         $this->currentPage = $page;
+
         return $this;
     }
 
@@ -139,6 +148,7 @@ class Pagination {
     public function addQuery(string $key, mixed $value): self 
     {
         $this->urlQueries[$key] = $value;
+
         return $this;
     }
 
@@ -152,23 +162,8 @@ class Pagination {
     public function setQueries(array $queries): self 
     {
         $this->urlQueries = $queries;
+
         return $this;
-    }
-
-
-   /**
-     * Builds additional query string to add to the URL
-     * 
-     * @param mixed $link If the initial link value is not # add any additional items
-     * 
-     * @return string will return additional url query string
-     */
-    protected function buildQuery(string $link): string 
-    {
-        if($this->urlQueries !== [] && $link !== '#'){
-            return http_build_query(array_filter($this->urlQueries), '', '&amp;');
-        }
-        return '';
     }
 
     /**
@@ -181,6 +176,7 @@ class Pagination {
     public function setAllowCss(bool $allow): self 
     {
         $this->allowCss = $allow;
+
         return $this;
     }
 
@@ -194,6 +190,20 @@ class Pagination {
     public function setClass(string $class): self
     {
         $this->addClass = $class;
+        return $this;
+    }
+
+     /**
+     * Sets enable add default item class
+     * 
+     * @param bool $itemClass 
+     * 
+     * @return $this
+     */
+    public function setItemClass(bool $itemClass): self 
+    {
+        $this->itemClass = $itemClass;
+
         return $this;
     }
 
@@ -220,7 +230,24 @@ class Pagination {
     public function setTruncate(int $truncate): self 
     {
         $this->pageTruncate = $truncate;
+
         return $this;
+    }
+
+    /**
+     * Builds additional query string to add to the URL
+     * 
+     * @param mixed $link If the initial link value is not # add any additional items
+     * 
+     * @return string will return additional url query string
+     */
+    protected function buildQuery(string $link): string 
+    {
+        if($this->urlQueries === [] || $link === '#'){
+            return '';
+        }
+
+        return http_build_query(array_filter($this->urlQueries), '', '&amp;');
     }
 
     /**
@@ -253,12 +280,17 @@ class Pagination {
      */
     private function buttons(string $link, mixed $value, ?string $active = null): string 
     {
+        $class = $active .' ' . $this->addClass;
         if(self::LIST == $this->buildType){
-            return '<li class="page-item '. $active .' ' . $this->addClass . '"><a class="page-link" href="' . $link . $this->buildQuery($link) . '" title="Page ' . $value . '">'.$value.'</a></li>';
+            $class .= $this->itemClass ? ' page-item' : '';
+
+            return '<li class="'. $class . '"><a class="page-link" href="' . $link . $this->buildQuery($link) . '" title="Page ' . $value . '">'.$value.'</a></li>';
         } 
         
         if(self::LINK == $this->buildType){
-            return '<a class="page-link '. $active .' ' . $this->addClass . '" href="' . $link . $this->buildQuery($link) . '" title="Page ' . $value . '">'.$value.'</a>';
+            $class .= $this->itemClass ? ' page-link' : '';
+
+            return '<a class="' . $class . '" href="' . $link . $this->buildQuery($link) . '" title="Page ' . $value . '">'.$value.'</a>';
         }
         return '';
     }
