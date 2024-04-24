@@ -66,11 +66,11 @@ Initalisation options `new Pagination($rowCount, Pagination::LINK)`
 | setQueries(array)         | Set query parameters array(key => value)                                            |
 | setAllowCss(bool)         | Enable default paging buttons styling                                               |
 | setClass(string)          | Set a custom class name for paging list items `li`                                  |
-| setParentClass(string)    | Set a custom class name for pagination unordered list `ul`                          |
+| setContainerClass(string) | Set a custom class name for pagination unordered list `ul`                          |
 | setTruncate(int)          | Set pagination truncate offset                                                      |
 | getSize() :int            | Get total pagination calculated cell pages                                          |
 | getOffset() :int          | Get pagination next page start offset                                               |
-| get() :HTML:false         | Returns pagination generated html                                                   |
+| get() :string|false       | Returns pagination generated html                                                   |
 | show() :void              | Display pagination buttons                                                          |
 
 
