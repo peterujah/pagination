@@ -28,8 +28,27 @@
     },
     "autoload": {
         "psr-4": { 
-            "Peterujah\\NanoBlock\\": "src/" 
+            "Peterujah\\Paginator\\": "src/" 
         }
     },
+     "autoload-dev": {
+        "psr-4": {
+            "Peterujah\\Paginator\\Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.6 || ^10.5 || ^11.0"
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "scripts-descriptions": {
+        "test": "Run the PHPUnit test suite.",
+    },
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true,
+    },
+    "minimum-stability": "stable",
     "prefer-stable": true
 }
