@@ -1,13 +1,13 @@
 <?php
-namespace Peterujah\NanoBlock\Tests;
+namespace Peterujah\Paginator\Tests;
 
-use Peterujah\NanoBlock;
+use Peterujah\Paginator\Pagination;
 use PHPUnit\Framework\TestCase;
 
 class PaginationTest extends TestCase
 {
     
-    protected $pagination;
+    protected Pagination $pagination;
     
     public function setUp(): void
     {
@@ -26,7 +26,9 @@ class PaginationTest extends TestCase
      */
     public function testCreatePager()
     {
-        $pager = $this->pagination->setLimit(20)->setCurrentPage(1)->show();
+        $pager = $this->pagination->setLimit(20)
+            ->setCurrentPage(1)
+            ->get() ?: '';
 
         $this->assertStringStartsWith("<ul", $pager);
         $this->assertStringEndsWith("ul>", $pager);
