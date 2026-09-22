@@ -23,7 +23,7 @@ composer require peterujah/pagination
 Pagination can be used as an HTML hyperlink or HTML unordered list
 
 ```php 
- use Peterujah\NanoBlock\Pagination;
+ use Peterujah\Paginator\Pagination;
  $paging = new Pagination($rowCount, Pagination::LIST);
  $paging = new Pagination($rowCount, Pagination::LINK);
 ```
@@ -80,7 +80,7 @@ Initalisation options `new Pagination($rowCount, Pagination::LINK)`
 Example: Specify the total number of rows in your table `findTotalUsers :(int)`, then select only the number of items to show per page `findUsers(startOffset, limitPerPage)`
 
 ```php
-use Peterujah\NanoBlock\Pagination;
+use Peterujah\Paginator\Pagination;
 // Configure page limit
 $queryLimit = 30;
 $queryPage = $_GET["n"]??1;
