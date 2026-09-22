@@ -341,7 +341,7 @@ class Pagination {
      * 
      * @return string|false return paging links if available else will return false
      */
-    public function get(): mixed 
+    public function get(): string|bool 
     {
         $params = $this->buildQuery();
 
@@ -354,7 +354,7 @@ class Pagination {
         }
 
         if(self::LINK == $this->buildType){
-            return $this->pagination($params );
+            return $this->pagination($params);
         }
 
         return false;
