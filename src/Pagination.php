@@ -6,7 +6,7 @@
  * @copyright   Copyright (c), 2021 Peter(NG) peterujah
  * @license     MIT public license
  */
-namespace Peterujah\NanoBlock;
+namespace Peterujah\Paginator;
 
 /**
  * Class Pagination.
@@ -115,7 +115,7 @@ class Pagination {
      * 
      * @param int $limit row per page
      * 
-     * @return $this
+     * @return self
      */
     public function setLimit(int $limit): self 
     {
@@ -129,7 +129,7 @@ class Pagination {
      * 
      * @param int $page page number
      * 
-     * @return $this
+     * @return self
      */
     public function setCurrentPage(int $page): self 
     {
@@ -144,7 +144,7 @@ class Pagination {
      * @param string $key query name
      * @param mixed $value query value
      * 
-     * @return $this
+     * @return self
      */
     public function addQuery(string $key, mixed $value): self 
     {
@@ -156,9 +156,9 @@ class Pagination {
     /**
      * Sets additional url query parameter
      * 
-     * @param string $queries query name and value in arrays array(name => value, name => value 2)
+     * @param array<string,string> $queries query name and value in arrays array(name => value, name => value 2)
      * 
-     * @return $this
+     * @return self
      */
     public function setQueries(array $queries): self 
     {
@@ -172,7 +172,7 @@ class Pagination {
      * 
      * @param bool $allow boolean value to indicate if inline css will be created
      * 
-     * @return $this
+     * @return self
      */
     public function setAllowCss(bool $allow): self 
     {
@@ -186,7 +186,7 @@ class Pagination {
      * 
      * @param string $class class name separate with space for multiple class names
      * 
-     * @return $this
+     * @return self
      */
     public function setClass(string $class): self
     {
@@ -199,7 +199,7 @@ class Pagination {
      * 
      * @param bool $itemClass 
      * 
-     * @return $this
+     * @return self
      */
     public function setItemClass(bool $itemClass): self 
     {
@@ -213,7 +213,7 @@ class Pagination {
      * 
      * @param string $class class name separate with space for multiple class names
      * 
-     * @return $this
+     * @return self
      */
     public function setContainerClass(string $class): self 
     {
@@ -227,7 +227,7 @@ class Pagination {
      * 
      * @param int $truncate truncate index position
      * 
-     * @return $this
+     * @return self
      */
     public function setTruncate(int $truncate): self 
     {
@@ -346,7 +346,11 @@ class Pagination {
         $params = $this->buildQuery();
 
         if(self::LIST == $this->buildType){
-            return '<ul class="pagination ' . $this->parentClass . '">' . $this->pagination($params) . '</ul>';
+            return '<ul class="pagination ' 
+                . $this->parentClass 
+                . '">' 
+                . $this->pagination($params) 
+                . '</ul>';
         }
 
         if(self::LINK == $this->buildType){
